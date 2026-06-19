@@ -1,5 +1,6 @@
 package com.atomic.gamebooster
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -24,15 +25,29 @@ class MainActivity : AppCompatActivity() {
         binding.btnOverlay.setOnClickListener { onToggleOverlay() }
         binding.btnUsageAccess.setOnClickListener { onRequestUsageAccess() }
 
+        setupOverlayToggles()
         refreshRamLabel()
     }
 
-    private fun onRequestUsageAccess() {
-        if (BoosterUtils.isUsageAccessGranted(this)) {
-            Toast.makeText(this, "Usage access udah aktif", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Cari 'Game Booster' di list, aktifkan", Toast.LENGTH_LONG).show()
-            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+    private fun setupOverlayToggles() {
+        val prefs = getSharedPreferences("gb_prefs", Context.MODE_PRIVATE)
+
+        binding.chkShowFps.isChecked = prefs.getBoolean("show_fps", true)
+        binding.chkShowCpu.isChecked = prefs.getBoolean("show_cpu", true)
+        binding.chkShowTemp.isChecked = prefs.getBoolean("show_temp", true)
+        binding.chkShowRam.isChecked = prefs.getBoolean("show_ram", true)
+
+        binding.chkShowFps.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean("show_fps", checked).apply()
+        }
+        binding.chkShowCpu.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean("show_cpu", checked).apply()
+        }
+        binding.chkShowTemp.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean("show_temp", checked).apply()
+        }
+        binding.chkShowRam.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean("show_ram", checked).apply()
         }
     }
 
@@ -46,6 +61,15 @@ class MainActivity : AppCompatActivity() {
         val avail = BoosterUtils.getAvailableMemoryMB(this)
         val total = BoosterUtils.getTotalMemoryMB(this)
         binding.txtRam.text = "RAM tersedia: ${avail}MB / ${total}MB"
+    }
+
+    private fun onRequestUsageAccess() {
+        if (BoosterUtils.isUsageAccessGranted(this)) {
+            Toast.makeText(this, "Usage access udah aktif", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Cari 'Game Booster' di list, aktifkan", Toast.LENGTH_LONG).show()
+            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+        }
     }
 
     private fun onToggleDnd() {

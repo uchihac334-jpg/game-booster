@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#121212">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="24dp"
-    android:background="#121212">
+    android:padding="24dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,7 +55,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start Monitor (CPU/Suhu/RAM)"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tampilkan di Overlay"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="4dp" />
+
+    <CheckBox
+        android:id="@+id/chkShowFps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FPS"
+        android:textColor="#CCCCCC"
+        android:checked="true" />
+
+    <CheckBox
+        android:id="@+id/chkShowCpu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CPU %"
+        android:textColor="#CCCCCC"
+        android:checked="true" />
+
+    <CheckBox
+        android:id="@+id/chkShowTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Suhu"
+        android:textColor="#CCCCCC"
+        android:checked="true" />
+
+    <CheckBox
+        android:id="@+id/chkShowRam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RAM"
+        android:textColor="#CCCCCC"
+        android:checked="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,3 +109,4 @@
         android:layout_marginTop="24dp" />
 
 </LinearLayout>
+</ScrollView>
